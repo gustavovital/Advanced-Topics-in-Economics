@@ -6,7 +6,6 @@ clear all; clc; close all;
 
 %--------------------------------------------------
 %% PARAMETERS
-retir_age
 ga = 2;       % CRRA utility with parameter gamma
 sig2 = (0.8)^2;  % sigma^2 O-U
 Corr = exp(-0.9);  % persistence -log(Corr) O-U
@@ -24,10 +23,14 @@ amax = 100;    % range a
 I=300;        % number of a points 
 
 T=75;       %maximum age
+ret_age = 65;
+pension_theta = 0.5; % pension rate
+pension = pension_theta * w * zmean;
 N=300;      %number of age steps
 %N=75;      %number of age steps
 %N=10;      %number of age steps
 dt=T/N;
+r_age = round(ret_age / dt); % 65 is the age of retirement
 
 %% simulation parameters
 maxit  = 100;     %maximum number of iterations in the HJB loop
@@ -161,6 +164,14 @@ V = v_terminal;
         V = reshape(V_stacked,I,J);
         c_t{n} = c;
         % ss_t{n} = w*zz + r.*aa - c;
+
+        if n == r_age
+            ss_t{n} = pension + r.*aa - c;
+        elseif n > r_age
+            ss_t{n} = r.*aa - c;
+        else
+            ss_t{n} = w*zz + r.*aa - c;
+        end
 
     end
 
