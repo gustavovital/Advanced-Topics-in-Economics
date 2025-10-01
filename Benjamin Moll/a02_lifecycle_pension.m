@@ -200,4 +200,4 @@ ylim([-5 2])
 xlabel('Wealth')
 ylabel('Saving, s(a,z,t)')
 
-print -depsc lifecycle.eps
+%print -depsc lifecycle.eps
