@@ -2,10 +2,10 @@
 % written by Benjamin Moll
 clear all; clc; close all;
 
-tic
+%tic
 
 %--------------------------------------------------
-%PARAMETERS
+%% PARAMETERS
 ga = 2;       % CRRA utility with parameter gamma
 sig2 = (0.8)^2;  % sigma^2 O-U
 Corr = exp(-0.9);  % persistence -log(Corr) O-U
@@ -23,12 +23,14 @@ amax = 100;    % range a
 I=300;        % number of a points 
 
 T=75;       %maximum age
+% r_age = 65;
 N=300;      %number of age steps
 %N=75;      %number of age steps
 %N=10;      %number of age steps
 dt=T/N;
+r_age = round(65 / dt);
 
-%simulation parameters
+%% simulation parameters
 maxit  = 100;     %maximum number of iterations in the HJB loop
 crit = 10^(-10); %criterion HJB loop
 
@@ -56,7 +58,7 @@ Vzb = zeros(I,J);
 Vzz = zeros(I,J);
 c = zeros(I,J);
 
-%CONSTRUCT MATRIX Aswitch SUMMARIZING EVOLUTION OF z
+%% CONSTRUCT MATRIX Aswitch SUMMARIZING EVOLUTION OF z
 yy = - s2/dz2 - mu/dz;
 chi =  s2/(2*dz2);
 zeta = mu/dz + s2/(2*dz2);
@@ -84,13 +86,13 @@ end
 Aswitch=spdiags(centdiag,0,I*J,I*J)+spdiags(lowdiag,-I,I*J,I*J)+spdiags(updiag,I,I*J,I*J);
 
 
-%Preallocation
+%% Preallocation
 v = zeros(I,J,N);
 gg = cell(N+1,1);
 maxit = 1000;
 convergence_criterion = 10^(-5);
 
-% terminal condition on value function: value of death \approx 0
+%% terminal condition on value function: value of death \approx 0
 small_number1 = 10^(-8); small_number2 = 10^(-8);
 v_terminal = small_number1*(small_number2 + aa).^(1-ga)/(1-ga);
 
@@ -159,11 +161,19 @@ V = v_terminal;
         
         V = reshape(V_stacked,I,J);
         c_t{n} = c;
-        ss_t{n} = w*zz + r.*aa - c;
+        % ss_t{n} = w*zz + r.*aa - c;
+
+        if n >= r_age
+            ss_t{n} =  r.*aa - c;
+        else
+            ss_t{n} = w*zz + r.*aa - c;
+        end
+
     end
 
-toc
+%toc
     
+%%
 plot(a,c_t{1})
 plot(a,ss_t{1},a,zeros(I,1),'k--')
 
