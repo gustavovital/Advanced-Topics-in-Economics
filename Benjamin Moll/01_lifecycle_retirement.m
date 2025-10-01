@@ -23,12 +23,14 @@ amax = 100;    % range a
 I=300;        % number of a points 
 
 T=75;       %maximum age
-% r_age = 65;
+ret_age = 65;
+%pension_theta = 0.5; % pension rate
+%b = theta * w * zmean;
 N=300;      %number of age steps
 %N=75;      %number of age steps
 %N=10;      %number of age steps
 dt=T/N;
-r_age = round(65 / dt);
+r_age = round(ret_age / dt); % 65 is the age of retirement
 
 %% simulation parameters
 maxit  = 100;     %maximum number of iterations in the HJB loop
