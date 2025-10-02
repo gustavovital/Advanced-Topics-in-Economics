@@ -42,6 +42,7 @@ da = (amax-amin)/(I-1);
 z = linspace(zmin,zmax,J);   % productivity vector
 dz = (zmax-zmin)/(J-1);
 dz2 = dz^2;
+
 aa = a*ones(1,J);
 zz = ones(I,1)*z;
 
