@@ -211,14 +211,14 @@ end
 
 # =========
 # --- First plots ---
-plot(a, c_t[1][:,1], label="c_t[1]")   # first column of c_t[1]
-plot!(a, ss_t[1][:,1], label="ss_t[1]")
-plot!(a, zeros(I), label="0", linestyle=:dash, color=:black)
+# plot(a, c_t[1][:,1], label="c_t[1]")   # first column of c_t[1]
+# plot!(a, ss_t[1][:,1], label="ss_t[1]")
+# plot!(a, zeros(I), label="0", linestyle=:dash, color=:black)
 
 # Another plot for N-1
-plot(a, c_t[N-1][:,1], label="c_t[N-1]")
-plot!(a, ss_t[N-1][:,1], label="ss_t[N-1]")
-plot!(a, zeros(I), label="0", linestyle=:dash, color=:black)
+# plot(a, c_t[N-1][:,1], label="c_t[N-1]")
+# plot!(a, ss_t[N-1][:,1], label="ss_t[N-1]")
+# plot!(a, zeros(I), label="0", linestyle=:dash, color=:black)
 
 # --- Subplots like MATLAB's subplot(1,2,1) and subplot(1,2,2) ---
 p1 = plot(a, c_t[Int(1/∂t)][:,1], label="Age 1, Lowest Income", lw=2)
